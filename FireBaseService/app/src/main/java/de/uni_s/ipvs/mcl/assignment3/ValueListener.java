@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class ValueListener implements ValueEventListener {
 
-    TextView subscribe_temp = null;
+    TextView subscribe_temp;
     static ValueListener valueListener = null;
 
     public ValueListener(TextView subscribe_temp) {

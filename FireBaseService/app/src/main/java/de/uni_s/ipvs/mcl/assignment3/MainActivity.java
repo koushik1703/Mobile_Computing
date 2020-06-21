@@ -2,16 +2,10 @@ package de.uni_s.ipvs.mcl.assignment3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.text.SimpleDateFormat;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,17 +29,10 @@ public class MainActivity extends AppCompatActivity {
 
         Button subscribe_button = findViewById(R.id.subscribe_button);
 
-        final DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
+        write_button.setOnClickListener(WriteListener.getInstance(write_location, write_temp));
 
-        @SuppressLint("SimpleDateFormat")
-        final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        @SuppressLint("SimpleDateFormat")
-        final SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss");
+        read_button.setOnClickListener(ReadListener.getInstance(read_location, read_temp));
 
-        write_button.setOnClickListener(WriteListener.getInstance(mRef, write_location, dateFormat, timeFormat, write_temp));
-
-        read_button.setOnClickListener(ReadListener.getInstance(mRef, read_location, dateFormat, read_temp));
-
-        subscribe_button.setOnClickListener(SubscribeListener.getInstance(mRef, subscribe_location, dateFormat, subscribe_temp));
+        subscribe_button.setOnClickListener(SubscribeListener.getInstance(subscribe_location, subscribe_temp));
     }
 }

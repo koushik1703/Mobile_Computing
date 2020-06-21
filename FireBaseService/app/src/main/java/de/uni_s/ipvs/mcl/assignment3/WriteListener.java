@@ -1,34 +1,37 @@
 package de.uni_s.ipvs.mcl.assignment3;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class WriteListener implements View.OnClickListener {
 
-    DatabaseReference mRef = null;
-    EditText write_location = null;
-    SimpleDateFormat dateFormat = null;
-    SimpleDateFormat timeFormat = null;
-    TextView write_temp = null;
+    DatabaseReference mRef;
+    EditText write_location;
+    SimpleDateFormat dateFormat;
+    SimpleDateFormat timeFormat;
+    TextView write_temp;
     static WriteListener writeListener = null;
 
-    public WriteListener(DatabaseReference mRef, EditText write_location, SimpleDateFormat dateFormat, SimpleDateFormat timeFormat, TextView write_temp) {
-        this.mRef = mRef;
+    @SuppressLint("SimpleDateFormat")
+    public WriteListener(EditText write_location, TextView write_temp) {
+        this.mRef = FirebaseDatabase.getInstance().getReference();
         this.write_location = write_location;
-        this.dateFormat = dateFormat;
-        this.timeFormat = timeFormat;
+        this.dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        this.timeFormat = new SimpleDateFormat("HH:mm:ss");
         this.write_temp = write_temp;
     }
 
-    public static WriteListener getInstance(DatabaseReference mRef, EditText write_location, SimpleDateFormat dateFormat, SimpleDateFormat timeFormat, TextView write_temp) {
+    public static WriteListener getInstance(EditText write_location, TextView write_temp) {
         if(writeListener == null) {
-            writeListener = new WriteListener(mRef, write_location, dateFormat, timeFormat, write_temp);
+            writeListener = new WriteListener(write_location, write_temp);
         }
         return writeListener;
     }

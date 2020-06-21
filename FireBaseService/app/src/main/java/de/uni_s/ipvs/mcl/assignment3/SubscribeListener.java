@@ -1,10 +1,12 @@
 package de.uni_s.ipvs.mcl.assignment3;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -12,22 +14,24 @@ import java.util.Date;
 
 public class SubscribeListener implements View.OnClickListener {
 
-    DatabaseReference mRef = null;
-    EditText subscribe_location = null;
-    SimpleDateFormat dateFormat = null;
+    DatabaseReference mRef;
+    EditText subscribe_location;
+    SimpleDateFormat dateFormat;
+    TextView subscribe_temp;
     static SubscribeListener subscribeListener = null;
-    TextView subscribe_temp = null;
 
-    public SubscribeListener(DatabaseReference mRef, EditText subscribe_location, SimpleDateFormat dateFormat, TextView subscribe_temp) {
-        this.mRef = mRef;
+
+    @SuppressLint("SimpleDateFormat")
+    public SubscribeListener(EditText subscribe_location, TextView subscribe_temp) {
+        this.mRef = FirebaseDatabase.getInstance().getReference();
         this.subscribe_location = subscribe_location;
-        this.dateFormat = dateFormat;
+        this.dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         this.subscribe_temp = subscribe_temp;
     }
 
-    public static SubscribeListener getInstance(DatabaseReference mRef, EditText subscribe_location, SimpleDateFormat dateFormat, TextView subscribe_temp) {
+    public static SubscribeListener getInstance(EditText subscribe_location, TextView subscribe_temp) {
         if(subscribeListener == null) {
-            subscribeListener = new SubscribeListener(mRef, subscribe_location, dateFormat, subscribe_temp);
+            subscribeListener = new SubscribeListener(subscribe_location, subscribe_temp);
         }
         return subscribeListener;
     }

@@ -11,7 +11,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class SingleValueListener implements ValueEventListener {
 
-    TextView read_temp = null;
+    TextView read_temp;
     static SingleValueListener singleValueListener = null;
 
     public SingleValueListener(TextView read_temp) {

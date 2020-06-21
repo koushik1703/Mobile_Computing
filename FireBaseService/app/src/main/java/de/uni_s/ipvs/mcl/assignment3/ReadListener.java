@@ -1,33 +1,36 @@
 package de.uni_s.ipvs.mcl.assignment3;
 
+import android.annotation.SuppressLint;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ReadListener implements View.OnClickListener {
 
-    DatabaseReference mRef = null;
-    EditText read_location = null;
-    TextView read_temp = null;
-    SimpleDateFormat dateFormat = null;
+    DatabaseReference mRef;
+    EditText read_location;
+    TextView read_temp;
+    SimpleDateFormat dateFormat;
     static ReadListener readListener = null;
 
 
-    public ReadListener(DatabaseReference mRef, EditText read_location, SimpleDateFormat dateFormat, TextView read_temp) {
-        this.mRef = mRef;
+    @SuppressLint("SimpleDateFormat")
+    public ReadListener(EditText read_location, TextView read_temp) {
+        this.mRef = FirebaseDatabase.getInstance().getReference();
         this.read_location = read_location;
-        this.dateFormat = dateFormat;
+        this.dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         this.read_temp = read_temp;
     }
 
-    public static ReadListener getInstance(DatabaseReference mRef, EditText read_location, SimpleDateFormat dateFormat, TextView read_temp) {
+    public static ReadListener getInstance(EditText read_location, TextView read_temp) {
         if(readListener == null) {
-            readListener = new ReadListener(mRef, read_location, dateFormat, read_temp);
+            readListener = new ReadListener(read_location, read_temp);
         }
         return readListener;
     }
