@@ -14,7 +14,7 @@ Type the query to view result as shown below.
 ![Calc](https://user-images.githubusercontent.com/45932617/96609175-85274780-12fa-11eb-9af5-fbd443f763ba.png)
 
 
-# FileDownload
+# File Download
 
 Open folder FileDownload/ in Android Studio.
 
